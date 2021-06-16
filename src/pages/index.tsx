@@ -8,9 +8,11 @@ type SignInFormData = {
 }
 
 export default function SignIn() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm();
 
-  const handleSignIn: SubmitHandler<SignInFormData> = (data) => {
+  const handleSignIn: SubmitHandler<SignInFormData> = async (data) => {
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
     console.log(data);
   }
 
@@ -37,7 +39,9 @@ export default function SignIn() {
           <Input name="password" label="Senha" type="password" {...register('password')} />
         </Stack>
 
-        <Button type="submit" mt="6" colorScheme="pink" size="lg">Entrar</Button>
+        <Button type="submit" mt="6" colorScheme="pink" size="lg" isLoading={formState.isSubmitting}>
+          Entrar
+        </Button>
       </Flex >
     </Flex >
   )
